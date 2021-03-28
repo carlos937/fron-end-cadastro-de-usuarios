@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { CadastreSeComponent } from './Componentes/cadastre-se/cadastre-se.component';
+import { LoginComponent } from './Componentes/login/login.component';
 
 const routes: Routes = [ 
 {
@@ -8,17 +9,17 @@ const routes: Routes = [
   component : LoginComponent,
   pathMatch: 'full'
 }
-// ,
-// {
-//   path: 'home',
-//   loadChildren: () => import('./components/home/home-routing.module').then(m => m.HomePageRoutingModule)
-// }
-// ,
-// {
-//   path: 'cadastrese',
-//   component : CadastreseComponent,
-//   pathMatch: 'full'
-// }
+,
+{
+  path: 'home',
+  loadChildren: () => import('./Componentes/home/home-routing.module').then(m => m.HomeRoutingModule)
+}
+,
+{
+  path: 'cadastrese',
+  component : CadastreSeComponent,
+  pathMatch: 'full'
+}
 ];
 
 @NgModule({

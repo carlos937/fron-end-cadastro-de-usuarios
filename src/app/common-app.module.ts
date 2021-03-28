@@ -17,28 +17,28 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CadastreSeComponent } from './Componentes/cadastre-se/cadastre-se.component';
 import { RouterModule } from '@angular/router';
-import { CommonAppModule } from './common-app.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    CadastreSeComponent,
-    MenuPrincipalComponent, 
-    HomeComponent,
-  ],
   imports: [
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    AppRoutingModule,
-    CommonAppModule
+    RouterModule,
+    NgxLocalStorageModule.forRoot(),
+    NgxUiLoaderModule,
+    ToastrModule.forRoot(), 
+    HttpClientModule,
+    FormsModule,
+  ],
+  exports: [
+    RouterModule,
+    NgxLocalStorageModule,
+    NgxUiLoaderModule,
+    ToastrModule,
+    HttpClientModule ,
+    FormsModule,
   ],
   providers: [
-    CriptografiaRSA,
-    UsuarioService,
-    Suporte
+  
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class CommonAppModule { }
