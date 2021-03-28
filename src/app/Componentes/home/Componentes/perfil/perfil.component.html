@@ -1,1 +1,34 @@
-<p>perfil works!</p>
+
+<div class="row">
+    <div class="col-md-12 p-5">
+       <form [formGroup]="form" (ngSubmit)="editar()">
+          <div class="card">
+             <div class="card-body">
+                <div class="row">
+                   <div class="col">
+                      <h1 class="text-center">Perfil</h1>
+                   </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                       <input class="form-control py-4" type="text" formControlName="nome" placeholder="Seu nome ">
+                    </div>
+                
+                   <div class="col-md-6">
+                      <input class="form-control py-4" type="text" formControlName="email" placeholder="Seu email ">
+                   </div>
+                </div>
+                <div class="row mt-4">
+                   <div class="col-md-6">
+                      <button class="btn btn-primary btn-block py-2" type="button">Alterar Senha</button>
+                   </div>
+                   <div class="col-md-6">
+                      <button class="btn btn-success btn-block py-2" type="submit">Editar</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </form>
+    </div>
+ </div>
+

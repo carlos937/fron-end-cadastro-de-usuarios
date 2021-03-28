@@ -17,7 +17,6 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CadastreSeComponent } from './Componentes/cadastre-se/cadastre-se.component';
 import { RouterModule } from '@angular/router';
-
 @NgModule({
   imports: [
     RouterModule,
@@ -28,6 +27,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
   ],
   exports: [
+    ReactiveFormsModule,
     RouterModule,
     NgxLocalStorageModule,
     NgxUiLoaderModule,
