@@ -9,13 +9,18 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterModule } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   imports: [
     RouterModule,
     NgxLocalStorageModule.forRoot(),
     ModalModule.forRoot(),
     NgxUiLoaderModule,
-    ToastrModule.forRoot(), 
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right'
+    }), 
+    FontAwesomeModule,
     HttpClientModule,
     FormsModule,
     SweetAlert2Module,
@@ -26,6 +31,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     NgxLocalStorageModule,
     NgxUiLoaderModule,
     ToastrModule,
+    FontAwesomeModule,
     HttpClientModule ,
     FormsModule,
     SweetAlert2Module

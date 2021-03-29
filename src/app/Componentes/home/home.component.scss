@@ -5,3 +5,10 @@
 .tela{
     min-height: 600px;
 }
+
+
+@media screen and (max-width: 900px) {
+    .telaPrincipal{
+        width: 100%;
+    }
+}

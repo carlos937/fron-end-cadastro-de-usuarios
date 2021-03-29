@@ -1,6 +1,6 @@
 
 <div class="row">
-    <div class="col-md-12 p-5">
+    <div class="col-md-12 p-5 telaPerfil">
        <form  [formGroup]="form" (ngSubmit)="editar()">
           <div class="card">
              <div class="card-body">
@@ -11,19 +11,19 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-6">
-                       <input class="form-control py-4" type="text" formControlName="nome" placeholder="Seu nome ">
+                       <input class="form-control py-4 mt-2" type="text" formControlName="nome" placeholder="Seu nome ">
                     </div>
                 
                    <div class="col-md-6">
-                      <input class="form-control py-4" type="text" formControlName="email" placeholder="Seu email ">
+                      <input class="form-control py-4  mt-2" type="text" formControlName="email" placeholder="Seu email ">
                    </div>
                 </div>
                 <div class="row mt-4">
                    <div class="col-md-6">
-                      <button class="btn btn-primary btn-block py-2" (click)="AlterarSenha()" type="button">Alterar Senha</button>
+                      <button class="btn btn-primary btn-block py-2  mt-2" (click)="AlterarSenha()" type="button">Alterar Senha</button>
                    </div>
                    <div class="col-md-6">
-                      <button class="btn btn-success btn-block py-2" type="submit">Editar</button>
+                      <button class="btn btn-success btn-block py-2  mt-2" type="submit">Editar</button>
                    </div>
                 </div>
              </div>

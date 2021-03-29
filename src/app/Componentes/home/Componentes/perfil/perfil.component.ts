@@ -36,6 +36,9 @@ export class PerfilComponent implements OnInit {
   }
   
   editar() {
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    }  
     let form = Object.assign({}, this.form.value);
     this.suporte.abrirLoading();
     this.usuarioService.editarUsuario(form).subscribe(res => {
@@ -59,7 +62,9 @@ export class PerfilComponent implements OnInit {
   }
 
   AlterarSenha() {
-
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    }  
     Swal.mixin({
       input: 'password',
       confirmButtonText: 'Proximo &rarr;',

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { LocalStorageService } from 'ngx-localstorage';
 import { CriptografiaRSA } from 'src/app/security/criptografiaRSA';
@@ -21,7 +22,8 @@ export class UsuariosComponent implements OnInit {
     public cripto: CriptografiaRSA,
     private modalService: BsModalService,
     public suporte: Suporte,
-    public storage: LocalStorageService) { }
+    public storage: LocalStorageService,
+    public router :Router) { }
 
   ngOnInit(): void {
    this.login =  this.storage.get('Login');
@@ -29,6 +31,9 @@ export class UsuariosComponent implements OnInit {
   }
 
   buscarUsuarios(){
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    }  
     this.usuarioService.buscarUsuarios(this.login.jsonWebToken.token).subscribe(res => {
       this.usuarios = res;
       console.log(this.usuarios)
@@ -36,7 +41,9 @@ export class UsuariosComponent implements OnInit {
   }
 
   AlterarSenha(id){
-
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    }  
     Swal.mixin({
       input: 'password',
       confirmButtonText: 'Proximo &rarr;',
@@ -116,6 +123,9 @@ export class UsuariosComponent implements OnInit {
   }
 
   AbrirModalEditar(usuario,modal){
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    }  
    this.form = new  FormGroup({
         id: new FormControl(usuario.id),
         nome: new FormControl(usuario.nome, Validators.required),
@@ -126,6 +136,9 @@ export class UsuariosComponent implements OnInit {
   }
   
   Editar(){
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    } 
     let form = Object.assign({}, this.form.value);
     this.suporte.abrirLoading();
     this.usuarioService.editarUsuario(form).subscribe(res => {
@@ -153,8 +166,18 @@ export class UsuariosComponent implements OnInit {
   }
 
   AbrirAlertaRemoverUsuario(id,index){
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    }  
+
+    let texto = 'Deseja mesmo excluir este usuario ?'
+    
+    if(id == this.login.id){
+      texto = 'Deseja mesmo excluir sua conta de usuario ?'
+    }
+
     Swal.fire({
-      title: 'Deseja mesmo excluir este usuario ?',
+      title: texto,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -169,12 +192,21 @@ export class UsuariosComponent implements OnInit {
   }
 
   Remover(id,index){
+    if(this.suporte.ControleTokenExpirado()){
+      return;
+    } 
     this.suporte.abrirLoading();
     this.usuarioService.removerUsuario(id,this.login.jsonWebToken.token).subscribe(res => {
       this.suporte.fecharLoading();
       if (res.status == 0) {
-        this.suporte.abrirToastSuccess(res.mensagem);
-        this.usuarios.splice(index,1);
+       
+        if(id == this.login.id){
+          this.suporte.abrirToastSuccess("Sua conta de usuario foi removida com sucesso.");
+          this.router.navigate([''])
+        }else{
+          this.suporte.abrirToastSuccess(res.mensagem);
+          this.usuarios.splice(index,1);
+        }
       }
       else {
         this.suporte.abrirToastDanger(res.mensagem);

@@ -1,22 +1,39 @@
-<div class="menuLateral">
-<div class="row">
-  <div class="col">
-    <img class="img-fluid" src="../../assets/fullsize_2017_10_18_18_Logo-164750_473213_183910467_1287312692.jpg" alt="">
-  </div>
-</div>
-<div class="row">
-    <div class="col ">
-        <ul class="nav flex-column">
+
+
+
+
+<div #menuLateral class="menuLateral">
+   <div class="row ">
+      <div class="col ">
+         <button (click)="fecharMenuResponsivo(menuLateral,menuIcon)" class="fechar">X</button>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col">
+         <img class="img-fluid" src="../../assets/fullsize_2017_10_18_18_Logo-164750_473213_183910467_1287312692.jpg"
+            alt="">
+      </div>
+   </div>
+   <div class="row">
+      <div class="col ">
+         <ul class="nav flex-column">
             <li class="nav-item">
-               <button class="btn btn-dark btn-block py-2 botoes pl-4" type="button" routerLink="/home/perfil" >Perfil</button>
+               <button class="btn btn-dark btn-block py-2 botoes pl-4" type="button"
+                  routerLink="/home/perfil" (click)="fecharMenuResponsivo(menuLateral,menuIcon)">Perfil</button>
             </li>
             <li class="nav-item">
-               <button class="btn btn-dark btn-block py-2 botoes pl-4" type="button" routerLink="/home/usuarios">Usuarios</button>
+               <button class="btn btn-dark btn-block py-2 botoes pl-4" type="button"
+                  routerLink="/home/usuarios" (click)="fecharMenuResponsivo(menuLateral,menuIcon)">Usuarios</button>
             </li>
             <li class="nav-item">
-               <button class="btn btn-danger btn-block py-2  pl-4 " (click)="fazerLogout()" type="button">Sair</button>
+               <button class="btn btn-dark btn-block py-2 botoes pl-4 sair " (click)="fazerLogout()"
+                  type="button">Sair</button>
             </li>
          </ul>
-    </div>
+      </div>
+   </div>
 </div>
-</div>
+
+<button #menuIcon class="menu-icon" (click)="mostrarMenuResponsivo(menuLateral,menuIcon)">
+   <img class="img-fluid" src="../../../../../assets/menu.png" alt="">
+</button>

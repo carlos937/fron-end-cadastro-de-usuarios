@@ -1,0 +1,17 @@
+.tabela{
+    overflow: auto;
+}
+
+
+.tabela .table th,td {
+   min-width: 200px  !important;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .telaUsuarios{
+        padding: 1.5rem 0.2rem !important;
+    }
+
+}

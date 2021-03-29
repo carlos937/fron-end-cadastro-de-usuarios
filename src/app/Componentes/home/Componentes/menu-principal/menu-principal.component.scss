@@ -24,3 +24,60 @@
 .botoes:hover {
     border: rgba(0, 0, 0, 0.4) 1px solid;
 }
+
+.sair{
+    color: red ;
+}
+
+.fechar{
+  float: right;
+  background: transparent;
+  color: #ccc;
+  border: 0;
+  font-size: 15px;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: none;
+}
+
+.menu-icon{
+  width: 50px;
+  background : #fff;
+  border-radius: 50%;
+  padding: 10px;
+  position: fixed;
+  right: 0;
+  top:0;
+  margin: 10px  10px    0  0;
+  cursor:pointer;
+  display: none;
+  z-index: 100;
+}
+
+
+@media screen and (max-width: 900px) {
+    .menuLateral{
+       width:  30%;
+       overflow: auto;
+       display: none;
+    }
+
+    .menu-icon{
+        display: block;
+    }
+
+    .menuLateral .img-fluid{
+        max-height: 300px;
+    }
+    .fechar{
+        display: block;
+      }
+}
+
+@media screen and (max-width: 650px) {
+    .menuLateral{
+       width:  50%;
+       overflow: auto;
+    }
+
+}

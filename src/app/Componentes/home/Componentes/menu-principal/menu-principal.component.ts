@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-localstorage';
 
@@ -22,4 +22,14 @@ export class MenuPrincipalComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  mostrarMenuResponsivo(menuLateral,menuIcon){
+     menuLateral.style.display = 'block';
+     menuIcon.style.display = 'none';
+  }
+  fecharMenuResponsivo(menuLateral,menuIcon){
+    if(window.screen.width <= 900){
+      menuLateral.style.display = 'none';
+      menuIcon.style.display = 'block';
+    }
+  }
 }
