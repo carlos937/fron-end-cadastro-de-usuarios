@@ -8,10 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterModule } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   imports: [
     RouterModule,
     NgxLocalStorageModule.forRoot(),
+    ModalModule.forRoot(),
     NgxUiLoaderModule,
     ToastrModule.forRoot(), 
     HttpClientModule,

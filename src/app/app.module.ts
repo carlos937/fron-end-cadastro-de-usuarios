@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CadastreSeComponent } from './Componentes/cadastre-se/cadastre-se.component';
 import { RouterModule } from '@angular/router';
 import { CommonAppModule } from './common-app.module';
+import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { CommonAppModule } from './common-app.module';
     LoginComponent,
     CadastreSeComponent,
     MenuPrincipalComponent, 
-    HomeComponent,
+    HomeComponent, 
   ],
   imports: [
     ReactiveFormsModule,

@@ -1,6 +1,7 @@
 import { variaveisGlobais } from '../variaveisGlobais';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +22,26 @@ export class UsuarioService {
     return this.http.post(variaveisGlobais.baseUrl+"Usuario/Adicionar",obj,headers );
   }
 
+
+  buscarUsuarios(token):any{
+    let headers = { 
+      headers: new HttpHeaders()
+     .set('Content-Type', 'application/json; charset=utf-8')
+     .set('Authorization' , 'Bearer '+ token)
+    };
+
+    return this.http.get(variaveisGlobais.baseUrl+"Usuario/BuscarTodos",headers );
+  }
+
+  removerUsuario(id ,token):any{
+    let headers = { 
+      headers: new HttpHeaders()
+     .set('Content-Type', 'application/json; charset=utf-8')
+     .set('Authorization' , 'Bearer '+ token)
+    };
+
+    return this.http.get(variaveisGlobais.baseUrl+"Usuario/Remover?id="+id,headers );
+  }
 
   editarUsuario(obj):any{
     let headers = { 

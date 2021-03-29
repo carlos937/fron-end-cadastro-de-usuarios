@@ -16,10 +16,10 @@ const routes: Routes = [
         path: 'perfil',
         loadChildren: () => import('./Componentes/perfil/perfil.module').then(m => m.PerfilModule)
       },
-      // {
-      //   path: 'configuracoes',
-      //   loadChildren: () => import('./pages/editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule)
-      // }
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./Componentes/usuarios/usuarios.module').then( m => m.UsuariosModule)
+      }
     ]
   }
 ];

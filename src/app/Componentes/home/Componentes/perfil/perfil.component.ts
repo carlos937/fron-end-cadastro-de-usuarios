@@ -34,9 +34,10 @@ export class PerfilComponent implements OnInit {
     })
 
   }
-  async editar() {
+  
+  editar() {
     let form = Object.assign({}, this.form.value);
-    await this.suporte.abrirLoading();
+    this.suporte.abrirLoading();
     this.usuarioService.editarUsuario(form).subscribe(res => {
       this.suporte.fecharLoading();
       if (res.status == 0) {
@@ -57,7 +58,7 @@ export class PerfilComponent implements OnInit {
 
   }
 
-  async AlterarSenha() {
+  AlterarSenha() {
 
     Swal.mixin({
       input: 'password',
@@ -69,32 +70,32 @@ export class PerfilComponent implements OnInit {
         title: 'Nova senha',
         // showLoaderOnConfirm: true,
         preConfirm: (value) => {
-    
-                if(value){
-                  return new  Promise((resolve:any) => { return resolve() })
-                }
-                else{
-                  
-                  Swal.showValidationMessage(
-                    'A senha não pode ser vazia !'
-                  )
-                }
-         
+
+          if (value) {
+            return new Promise((resolve: any) => { return resolve() })
+          }
+          else {
+
+            Swal.showValidationMessage(
+              'A senha não pode ser vazia !'
+            )
+          }
+
         }
       },
       {
         title: 'Confirmar nova senha',
         // showLoaderOnConfirm: true,
         preConfirm: (value) => {
-          
-            if (value) {
-              return new  Promise((resolve:any) => { return resolve() })
-            } else {
-                Swal.showValidationMessage(
-                  'A senha não pode ser vazia !'
-                )
-            }
-         
+
+          if (value) {
+            return new Promise((resolve: any) => { return resolve() })
+          } else {
+            Swal.showValidationMessage(
+              'A senha não pode ser vazia !'
+            )
+          }
+
         }
       }
 
@@ -108,13 +109,17 @@ export class PerfilComponent implements OnInit {
             senha: this.cripto.criptografar(result.value[0]),
             token: this.login.jsonWebToken.token
           };
+          this.suporte.abrirLoading();
           this.usuarioService.alterarSenha(form).subscribe(res => {
             this.suporte.fecharLoading();
             if (res.status == 0) {
               this.suporte.abrirToastSuccess(res.mensagem);
               delete res.status;
               delete res.mensagem;
-              this.storage.set('Login', res);
+
+              this.login.nome = res.nome;
+              this.login.email = res.email;
+              this.storage.set('Login', this.login);
             }
             else {
               this.suporte.abrirToastDanger(res.mensagem);
