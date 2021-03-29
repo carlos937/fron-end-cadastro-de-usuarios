@@ -5,6 +5,7 @@ import { LocalStorageService } from 'ngx-localstorage';
 import { CriptografiaRSA } from 'src/app/security/criptografiaRSA';
 import { UsuarioService } from 'src/app/services/usuario-service.service';
 import { Suporte } from 'src/app/suporte';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
@@ -24,14 +25,14 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit() {
 
-      this.login = this.storage.get('Login')
-      this.form = new FormGroup({
-        id: new FormControl(this.login.id),
-        nome: new FormControl(this.login.nome, Validators.required),
-        email: new FormControl(this.login.email, Validators.required),
-        token: new FormControl(this.login.jsonWebToken.token)
-      })
-      
+    this.login = this.storage.get('Login')
+    this.form = new FormGroup({
+      id: new FormControl(this.login.id),
+      nome: new FormControl(this.login.nome, Validators.required),
+      email: new FormControl(this.login.email, Validators.required),
+      token: new FormControl(this.login.jsonWebToken.token)
+    })
+
   }
   async editar() {
     let form = Object.assign({}, this.form.value);
@@ -56,64 +57,79 @@ export class PerfilComponent implements OnInit {
 
   }
 
-  // async AlterarSenha() {
-  //   const alert = await this.alertController.create({
-  //     header: 'Alterar Senha',
-  //     backdropDismiss: false,
-  //     inputs: [
-  //       {
-  //         name: 'senha',
-  //         type: 'password',
-  //         placeholder: 'Senha'
-  //       },
-  //       {
-  //         name: 'confirmarSenha',
-  //         type: 'password',
-  //         placeholder: 'Confirmar Senha'
-  //       },
+  async AlterarSenha() {
 
-  //     ],
-  //     buttons: [
-  //       {
-  //         text: 'Cancelar',
-  //         role: 'cancel',
-  //         cssClass: 'secondary',
-  //         handler: () => {
-  //         }
-  //       }, {
-  //         text: 'Ok',
-  //         handler: (res) => {
-  //           if (res.senha == res.confirmarSenha) {
-  //             let form = {
-  //               id: this.informacoesLogin.id,
-  //               senha: this.cripto.criptografar(res.senha),
-  //               token: this.informacoesLogin.jsonWebToken.token
-  //             };
-  //             this.usuarioService.alterarSenha(form).subscribe(res => {
-  //               this.suporte.fecharLoading();
-  //               if (res.status == 0) {
-  //                 this.suporte.abrirToast(res.mensagem, 'success');
-  //                 delete res.status;
-  //                 delete res.mensagem;
-  //                 this.storage.set('Login', res);
-  //               }
-  //               else {
-  //                 this.suporte.abrirToast(res.mensagem, 'danger');
-  //               }
-  //             }, () => {
-  //               this.suporte.fecharLoading();
-  //               this.suporte.abrirToast("Serviço está fora do ar no momento", 'danger');
-  //             })
+    Swal.mixin({
+      input: 'password',
+      confirmButtonText: 'Proximo &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2']
+    }).queue([
+      {
+        title: 'Nova senha',
+        // showLoaderOnConfirm: true,
+        preConfirm: (value) => {
+    
+                if(value){
+                  return new  Promise((resolve:any) => { return resolve() })
+                }
+                else{
+                  
+                  Swal.showValidationMessage(
+                    'A senha não pode ser vazia !'
+                  )
+                }
+         
+        }
+      },
+      {
+        title: 'Confirmar nova senha',
+        // showLoaderOnConfirm: true,
+        preConfirm: (value) => {
+          
+            if (value) {
+              return new  Promise((resolve:any) => { return resolve() })
+            } else {
+                Swal.showValidationMessage(
+                  'A senha não pode ser vazia !'
+                )
+            }
+         
+        }
+      }
 
-  //           } else {
-  //             this.suporte.abrirToast('Suas senhas não correspondem.', 'danger');
-  //             return false;
-  //           }
-  //         }
-  //       }
-  //     ]
-  //   });
+    ]).then((result: any) => {
 
-  //   await alert.present();
-  // }
+      if (result.value) {
+
+        if (result.value[0] == result.value[1]) {
+          let form = {
+            id: this.login.id,
+            senha: this.cripto.criptografar(result.value[0]),
+            token: this.login.jsonWebToken.token
+          };
+          this.usuarioService.alterarSenha(form).subscribe(res => {
+            this.suporte.fecharLoading();
+            if (res.status == 0) {
+              this.suporte.abrirToastSuccess(res.mensagem);
+              delete res.status;
+              delete res.mensagem;
+              this.storage.set('Login', res);
+            }
+            else {
+              this.suporte.abrirToastDanger(res.mensagem);
+            }
+          }, () => {
+            this.suporte.fecharLoading();
+            this.suporte.abrirToastDanger("Serviço está fora do ar no momento");
+          })
+
+        } else {
+          this.suporte.abrirToastDanger('Suas senhas não correspondem.');
+          this.AlterarSenha();
+        }
+      }
+    })
+
+  }
 }
